@@ -27,7 +27,7 @@ Route::get('/', function () {
 //})->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('users', UserController::class);
     Route::resource('filetypes', FileTypeController::class);
@@ -35,5 +35,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('tags', TagController::class);
 });
 
+
+//Media library routes
+Route::get('/medialibrary', [App\Http\Controllers\MediaLibraryController::class, 'mediaLibrary'])->name('media-library');
+
+//FILE UPLOADS CONTROLER
+Route::post('medialibrary/upload', [App\Http\Controllers\UploaderController::class, 'upload'])->name('file-upload');
+Route::post('medialibrary/delete', [App\Http\Controllers\UploaderController::class, 'delete'])->name('file-delete');
 
 require __DIR__.'/auth.php';
